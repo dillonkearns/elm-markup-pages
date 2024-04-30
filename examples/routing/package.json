@@ -14,12 +14,8 @@
     "elm-oembed": "0.0.6",
     "elm-pages": "file:../..",
     "elm-tooling": "^1.15.1",
-    "esbuild": "^0.20.2",
-    "http-server": "^14.1.1"
-  },
-  "overrides": {
-    "vite": {
-      "rollup": "npm:@rollup/wasm-node"
-    }
+    "esbuild": "^0.19.12",
+    "http-server": "^14.1.1",
+    "vite": "5.0.11"
   }
 }
