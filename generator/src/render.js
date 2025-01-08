@@ -32,7 +32,6 @@ process.on("unhandledRejection", (error) => {
 });
 
 /**
- *
  * @param {string} basePath
  * @param {Object} elmModule
  * @param {string} path
@@ -95,8 +94,7 @@ export async function runGenerator(
       elmModule,
       scriptModuleName,
       "production",
-      "",
-      true
+      ""
     );
     return result;
   } catch (error) {
@@ -104,6 +102,7 @@ export async function runGenerator(
     console.log(restoreColorSafe(error));
   }
 }
+
 /**
  * @param {string} basePath
  * @param {Object} elmModule
@@ -112,8 +111,6 @@ export async function runGenerator(
  * @returns {Promise<({is404: boolean;} & ({kind: 'json';contentJson: string;} | {kind: 'html';htmlString: string;} | {kind: 'api-response';body: string;}))>}
  * @param {string[]} cliOptions
  * @param {any} portsFile
- * @param {typeof import("fs") | import("memfs").IFs} fs
- * @param {boolean} hasFsAccess
  * @param {string} scriptModuleName
  */
 function runGeneratorAppHelp(
@@ -123,8 +120,7 @@ function runGeneratorAppHelp(
   elmModule,
   scriptModuleName,
   mode,
-  pagePath,
-  hasFsAccess
+  pagePath
 ) {
   const isDevServer = mode !== "build";
   let patternsToWatch = new Set();
