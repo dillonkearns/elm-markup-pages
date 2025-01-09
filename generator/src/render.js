@@ -137,9 +137,11 @@ function runGeneratorAppHelp(
     });
 
     killApp = () => {
-      app.ports.toJsPort.unsubscribe(portHandler);
-      app.die();
-      app = null;
+      if (app) {
+        app.ports.toJsPort.unsubscribe(portHandler);
+        app.die();
+        app = null;
+      }
       // delete require.cache[require.resolve(compiledElmPath)];
     };
 
@@ -185,8 +187,10 @@ function runGeneratorAppHelp(
     app.ports.toJsPort.subscribe(portHandler);
   }).finally(() => {
     try {
-      killApp();
-      killApp = null;
+      if (killApp) {
+        killApp();
+        killApp = null;
+      }
     } catch (error) {}
   });
 }
@@ -233,10 +237,12 @@ function runElmApp(
     });
 
     killApp = () => {
-      app.ports.toJsPort.unsubscribe(portHandler);
-      app.ports.sendPageData.unsubscribe(portHandler);
-      app.die();
-      app = null;
+      if (app) {
+        app.ports.toJsPort.unsubscribe(portHandler);
+        app.ports.sendPageData.unsubscribe(portHandler);
+        app.die();
+        app = null;
+      }
       // delete require.cache[require.resolve(compiledElmPath)];
     };
 
@@ -293,8 +299,10 @@ function runElmApp(
   }).finally(() => {
     addBackendTaskWatcher(patternsToWatch);
     try {
-      killApp();
-      killApp = null;
+      if (killApp) {
+        killApp();
+        killApp = null;
+      }
     } catch (error) {}
   });
 }
