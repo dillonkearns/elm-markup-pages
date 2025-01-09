@@ -11,16 +11,9 @@ const defaultHttpCachePath = "./.elm-pages/http-cache";
  * @param {string} mode
  * @param {{url: string;headers: {[x: string]: string;};method: string;body: Body; }} rawRequest
  * @param {Record<string, unknown>} portsFile
- * @param {boolean} hasFsAccess
  * @returns {Promise<Response>}
  */
-export function lookupOrPerform(
-  portsFile,
-  mode,
-  rawRequest,
-  hasFsAccess,
-  useCache
-) {
+export function lookupOrPerform(portsFile, mode, rawRequest) {
   const makeFetchHappen = makeFetchHappenOriginal.defaults({
     cache: mode === "build" ? "no-cache" : "default",
   });
