@@ -157,19 +157,8 @@ function runGeneratorAppHelp(
         process.exit(0);
       } else if (fromElm.tag === "PageProgress") {
         const args = fromElm.args[0];
-
         if (isBytes) {
-          resolve({
-            kind: "bytes",
-            is404: false,
-            contentJson: JSON.stringify({
-              staticData: args.contentJson,
-              is404: false,
-            }),
-            statusCode: args.statusCode,
-            headers: args.headers,
-            contentDatPayload,
-          });
+          resolve(outputBytes(args, contentDatPayload));
         } else {
           resolve(
             outputString(basePath, fromElm, isDevServer, contentDatPayload)
@@ -269,17 +258,7 @@ function runElmApp(
       } else if (fromElm.tag === "PageProgress") {
         const args = fromElm.args[0];
         if (isBytes) {
-          resolve({
-            kind: "bytes",
-            is404: false,
-            contentJson: JSON.stringify({
-              staticData: args.contentJson,
-              is404: false,
-            }),
-            statusCode: args.statusCode,
-            headers: args.headers,
-            contentDatPayload,
-          });
+          resolve(outputBytes(args, contentDatPayload));
         } else {
           resolve(
             outputString(basePath, fromElm, isDevServer, contentDatPayload)
@@ -305,6 +284,24 @@ function runElmApp(
       }
     } catch (error) {}
   });
+}
+
+/**
+ * @param {{ route?: string; html?: string; contentJson: any; errors?: string[]; head?: HeadTag[]; title?: string; staticHttpCache?: { [key: string]: string; }; is404?: boolean; statusCode: any; headers: any; }} args
+ * @param {undefined} contentDatPayload
+ */
+function outputBytes(args, contentDatPayload) {
+  return {
+    kind: "bytes",
+    is404: false,
+    contentJson: JSON.stringify({
+      staticData: args.contentJson,
+      is404: false,
+    }),
+    statusCode: args.statusCode,
+    headers: args.headers,
+    contentDatPayload,
+  };
 }
 
 /**
